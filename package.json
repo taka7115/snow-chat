@@ -8,7 +8,7 @@
     "server": "run-s server:*",
     "server:open": "opener http://localhost:3000/",
     "server:execution": "node server-dev",
-    "build": "run-s server:*",
+    "build": "run-s build:*",
     "build:setup" : "npm i",
     "build:execution" : "node server-pro"
   },
