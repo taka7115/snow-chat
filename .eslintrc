@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended"
+    ],
+    "globals": {
+        "window": true,
+        "document": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "rules": {
+        "comma-dangle": ["error", "never"],
+        "dot-location": ["error", "property"],
+        "linebreak-style": ["error", "unix"],
+        "no-prototype-builtins": "off",
+        "padded-blocks": ["error", "never"],
+        "strict": ["error", "function"],
+        "no-return-assign": "error"
+    }
+}

@@ -1,0 +1,50 @@
+@charset "utf-8";
+// /**
+//  * define valiables
+//  * 各scssファイルでよく使う値を変数定義
+//  */
+
+
+//ブレイクポイント
+$breakPoint: 768;
+
+//色
+$color-01: #60B3D2;
+$color-02: #2F86A6;
+$color-03: #406FBE;
+$color-04: #FEFEFE;
+$color-05: #939393;
+$color-06: #555555;
+
+//サイト全体のフォントカラー
+$txt-color: #333;
+
+//リンク関連
+$link-color: #333;
+$link-normal: #186cc2;
+$link-visited:#6e0672;
+
+//baseのfont-size
+$base_fs:16;
+$imgPath:"/assets/img/";
+$font-family-basic: "Noto Sans JP",
+"ヒラギノ角ゴ ProN W3",
+// Japanese font for MAC OS X v10.5 or later
+"Hiragino Kaku Gothic ProN",
+"ヒラギノ角ゴ Pro W3",
+// Japanese font for the previous MAC OS X v10.4
+"Hiragino Kaku Gothic Pro",
+"ヒラギノ丸ゴ ProN W4",
+// Japanese font for MAC OS X v10.5 or later
+"Hiragino Maru Gothic ProN",
+"ヒラギノ丸ゴ Pro W4",
+// Japanese font for the previous MAC OS X v10.4
+"Hiragino Maru Gothic Pro",
+"メイリオ",
+// Japanese font for Windows8/7/Vista
+"Meiryo",
+"ＭＳ Ｐゴシック",
+// Japanese font for the previous WindowsXP
+"MS PGothic",
+Sans-Serif // others
+;

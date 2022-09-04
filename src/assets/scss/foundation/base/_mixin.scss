@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+@use "_properties"as *;
+
+@mixin sp {
+  @media screen and (max-width: $breakPoint*1px) {
+    @content;
+  }
+}
+
+@mixin pc {
+
+  @media print,
+  screen and (min-width: $breakPoint+1px) {
+    @content;
+  }
+}
+
+@mixin tab {
+
+  @media print,
+  screen and (min-width: $breakPoint+1px) and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin hover {
+
+  &:hover,
+  &:active,
+  &:focus {
+    @content;
+  }
+}
+
+@mixin vw($size) {
+  font-size: ($size /2) *1px;
+  font-size: calc($size /$breakPoint *100) *1vw;
+}
+
+@mixin fs($size) {
+  font-size: $size+px;
+  font-size: calc($size / $base-fs) * 1rem;
+}
+
+@mixin indent {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+@mixin l-h {
+  line-height: 1;
+}
+
+@mixin noto {
+  font-family: "Noto Sans JP";
+}
+
+@mixin medium {
+  font-weight: 500;
+}
+
+@mixin extra {
+  font-weight: 800;
+}
+
+@mixin narrow {
+  letter-spacing: 0em;
+}

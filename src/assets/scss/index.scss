@@ -1,0 +1,24 @@
+
+@charset "utf-8";
+/*foundation base*/
+@use "foundation/base/_initialize";
+@use "foundation/base/_mixin";
+@use "foundation/base/_function";
+@use "foundation/base/_init";
+@use "foundation/base/_properties" as props;
+
+.content {
+  width: clamp(500px, 500px, 90vw);
+  margin:10vh auto;
+  border: 2px solid props.$color-02;
+  border-radius: 8px;
+  overflow:hidden;
+
+  &.is-chat {
+      position: relative;
+      width: min(100%, 640px);
+      min-height: 80vh;
+      height: auto;
+      max-height: 120vh;
+    }
+  }

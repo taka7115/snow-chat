@@ -1,0 +1,30 @@
+<% var meta = {
+    pageTitle:'title',
+    description:'description',
+    keywords:'keywords',
+    url:'http://www.example.com/',
+    noindex:false
+  };
+  var page={
+      root:filePath.dir
+  };
+%>
+<%- include(page.root + 'common/_meta', {param:'param'}); %>
+<%- include(page.root + 'common/_header', {param:'param'}); %>
+
+  <!-- <picture>
+    <source srcset="<%-conf.path.img%>" media="(max-width: 768px)">
+    <img src="<%-conf.path.img%>" alt="">
+</picture> -->
+
+<main id="app" class="l-main">
+
+<div class="l-main__inner">
+
+<page></page>
+
+</div>
+
+</main>
+
+<%- include(page.root + 'common/_footer', {param:'param'}); %>

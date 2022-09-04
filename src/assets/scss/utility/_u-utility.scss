@@ -1,0 +1,41 @@
+@use "../foundation/base/mixin"as *;
+
+.u {
+    &-mt00 {
+        margin-top: 0;
+    }
+
+    &-pci {
+        display: inline-block;
+
+        @include sp {
+            display: none;
+        }
+    }
+
+    &-spi {
+        display: none;
+
+        @include sp {
+            display: inline-block;
+        }
+    }
+
+    &-pc {
+        display: block;
+
+        @include sp {
+            display: none;
+        }
+    }
+
+    &-sp {
+        display: none;
+
+        @include sp {
+            display: block;
+        }
+    }
+
+
+}

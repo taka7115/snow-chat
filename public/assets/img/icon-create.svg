@@ -1,0 +1,5 @@
+<svg id="add" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path id="パス_24" data-name="パス 24" d="M12,0A12,12,0,1,1,0,12,12,12,0,0,1,12,0Z" fill="#939393"/>
+  <path id="パス_25" data-name="パス 25" d="M0,0H8.3" transform="translate(7.85 12)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+  <path id="パス_26" data-name="パス 26" d="M0,0H8.3" transform="translate(12 7.85) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+</svg>

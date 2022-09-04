@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+// pxは使わずremを使う
+@function rem($px){
+  @return ($px / 16) * 1rem;
+}
+
+// 縦横比変えず高さを求める
+@function height($vw) {
+  @return (($origin_height * $vw) / $origin_width)/750*100vw;
+}

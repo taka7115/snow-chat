@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+/*
+サンプル .m-sample
+
+このスタイルの説明文
+
+:hover    - ホバー時の説明
+.m-sample--modifier  -  [modifier class] に入れるclass
+
+
+Markup:
+<div class="m-sample {{modifier_class}}">
+  <div class="m-sample__block">sample</div>
+</div>
+
+
+Styleguide 0.1.1
+
+*/
+
+
+
+
+.m-sample{
+  // $thisに親のclass名を格納する
+  $this: &;
+
+  &:hover{
+    background: #ccc;
+  }
+
+  // デフォルトのスタイル
+  &__block {
+    // 本文スタイル
+
+    border: 1px solid #000;
+    padding: 10px;
+
+    #{$this}--modifier &{
+    // .m-sample--modifier .m-sample__block
+
+      color:  #f00;
+
+    }
+  }
+
+}
