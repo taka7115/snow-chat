@@ -9,7 +9,7 @@ module.exports = {
    * while development：development
    * just before submission to client：production
    */
-  mode: "development",
+  mode: "production",
   /**
    * choose several different js files
    */
