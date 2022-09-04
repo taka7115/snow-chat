@@ -7,8 +7,10 @@
     "start": "gulp",
     "server": "run-s server:*",
     "server:open": "opener http://localhost:3000/",
-    "server:setup": "node server-dev",
-    "build": "node server-pro"
+    "server:execution": "node server-dev",
+    "build": "run-s server:*",
+    "build:setup" : "npm i",
+    "build:execution" : "node server-pro"
   },
   "author": "",
   "license": "ISC",
