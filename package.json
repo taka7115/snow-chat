@@ -4,13 +4,13 @@
   "description": "my first chatting App",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "gulp",
+    "compile": "gulp",
     "server": "run-s server:*",
     "server:open": "opener http://localhost:3000/",
-    "server:execution": "node server-dev",
-    "build": "run-s build:*",
-    "build:setup" : "npm i",
-    "build:execution" : "node server-pro"
+    "server:execution": "node server-dev.js",
+    "start": "run-s start:*",
+    "start:setup" : "npm i",
+    "start:execution" : "node server-pro.js"
   },
   "author": "",
   "license": "ISC",
