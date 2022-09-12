@@ -12,7 +12,7 @@
 
   const io = socketIo(server); // define io
 
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT;
   app.get("/public/", (req, res) => {
     // set up routing
     res.sendFile(__dirname + "/index.html");
