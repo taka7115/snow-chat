@@ -23,7 +23,9 @@ const App = () => {
   const options = {
     forceNew: true,
   };
-  const socket = io("http://localhost:3000", options);
+  const host = location.host;
+  console.log(host);
+  const socket = io(`${host}/`, options);
   let myId = storageId || null;
 
   const setSocket = new Promise((resolve, reject) => {

@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "description": "my first chatting App",
   "main": "gulpfile.js",
+  "volta": {
+    "node": "16.17.0"
+  },
   "scripts": {
-    "compile": "gulp",
+    "dev": "gulp dev",
+    "build": "gulp build",
     "server": "run-s server:*",
     "server:open": "opener http://localhost:3000/",
     "server:execution": "node server-dev.js",
     "start": "run-s start:*",
-    "start:setup" : "npm i",
-    "start:execution" : "node server-pro.js"
+    "start:setup": "npm i",
+    "start:execution": "node server-pro.js"
   },
   "author": "",
   "license": "ISC",

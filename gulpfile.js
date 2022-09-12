@@ -135,4 +135,5 @@ const watch = (done) => {
 
 
 // タスクの実行
-exports.default = gulp.series(sass2css, html2ejs, ts2js, watch);
+exports.dev = gulp.series(sass2css, html2ejs, ts2js, watch);
+exports.build = gulp.series(sass2css, html2ejs, ts2js);
