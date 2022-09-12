@@ -1,10 +1,6 @@
 <template>
-  <div
-    class="chatMessage"
-    v-for="item in messageList"
-    :key="item.time"
-    :class="{ 'is-mine': checkIfMessageIsMine(item) }"
-  >
+  <div class="chatMessage" v-for="item in messageList" :key="item.time"
+    :class="{ 'is-mine': checkIfMessageIsMine(item) }">
     <div class="chatMessage__item">
       <div class="chatMessage__user">
         <span class="chatMessage__userName">{{ item.user.name }}</span>
@@ -16,7 +12,7 @@
         <p class="chatMessage__commentText">{{ item.text }}</p>
       </div>
       <time class="chatMessage__time" :datetime="item.time">{{
-        item.time
+      item.time
       }}</time>
     </div>
   </div>
@@ -35,7 +31,7 @@ const defaultImg = '/assets/img/img-user-01.jpg';
 // Type
 type MessageType = {
   clientId: boolean;
-  user: string | null | undefined;
+  user: any;
   text: string | null | undefined;
   time: string | null | undefined;
 };
@@ -62,6 +58,7 @@ const checkIfMessageIsMine = (item) => {
  */
 socket.on('ioResponseRoomInfo', (list) => {
   messageList.value = list;
+  console.log(messageList);
 });
 </script>
 

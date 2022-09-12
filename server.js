@@ -12,7 +12,7 @@
 
   const io = socketIo(server); // define io
 
-  const PORT = 3000;
+  const PORT = process.env.PORT || 3000;
   app.get("/public/", (req, res) => {
     // set up routing
     res.sendFile(__dirname + "/index.html");
@@ -36,19 +36,17 @@
     }
   })
 
-  // response to uploaded image
-  const upload = multer({
-    storage: storage
-  });
+// response to uploaded image
+const upload = multer({ storage: storage });
 
-  app.post('/upload', upload.single('userIcon'), (req, res) => {
-    const imagePath = `/uploaded/${req.file.originalname}`;
-    // ↓if JSON send↓
-    // res.send(JSON.stringify({
-    //   imagePath: imagePath
-    // }));
-    res.send(imagePath);
-  })
+app.post('/upload', upload.single('userIcon'), (req, res) => {
+  const imagePath = `/uploaded/${req.file.originalname}`;
+  // ↓if JSON send↓
+  // res.send(JSON.stringify({
+  //   imagePath: imagePath
+  // }));
+  res.send(imagePath);
+})
 
 
 
@@ -123,8 +121,8 @@
      * @param {object} myClient
      */
     socket.on("ioUpdateMyClientOfServer", (myClient) => {
-      clientList.forEach((client, i) => {
-        if (client.id === myClient.id) {
+      clientList.forEach((client, i)=>{
+        if(client.id === myClient.id) {
           clientList[i] = myClient;
         }
       });
@@ -135,9 +133,9 @@
      * @param {object} myClient
      */
     socket.on("ioUpdateRoomInfoOfServer", (roomName) => {
-      if (!(roomInfo.find((room) => Object.keys(room)[0] === roomName))) {
+      if(!(roomInfo.find((room)=> Object.keys(room)[0] === roomName))) {
         const newRoom = {
-          [roomName]: []
+          [roomName] : []
         }
         roomInfo.push(newRoom);
       }
@@ -147,9 +145,10 @@
      * update roomInfo of server
      * @param {object} myClient
      */
-    socket.on("ioRequestRoomInfo", (roomName) => {
-      const roomData = roomInfo.filter((room) => Object.keys(room)[0] === roomName);
-      const messageList = Object.values(roomData)[0][roomName];
+     socket.on("ioRequestRoomInfo", (roomName) => {
+       const roomData = roomInfo.filter((room)=>Object.keys(room)[0] === roomName);
+       const messageList = Object.values(roomData)[0][roomName];
+       console.log(messageList);
       socket.emit("ioResponseRoomInfo", messageList);
     });
 
@@ -163,7 +162,7 @@
       const newMessage = messageInfo[1];
 
       roomInfo.forEach((room, i) => {
-        if (Object.keys(room)[0] === roomName) {
+        if(Object.keys(room)[0] === roomName) {
           roomInfo[i][roomName].push(newMessage);
         }
         socket.emit("ioResponseRoomInfo", roomInfo[i][roomName]);

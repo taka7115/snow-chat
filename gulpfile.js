@@ -98,7 +98,7 @@ const html2ejs = (done) => {
 
 // ts(webpack)
 const ts2js = (done) => {
-  gulp.src(`${SRC}/assets/js/main.ts`)
+  return gulp.src(`${SRC}/assets/js/main.ts`)
     // webpackStreamの第2引数にwebpackを渡す
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(plumber())
@@ -118,4 +118,5 @@ const watch = (done) => {
 
 // タスクの実行
 exports.dev = gulp.series(sass2css, html2ejs, ts2js, watch);
+exports.ts = gulp.series(html2ejs);
 exports.build = gulp.series(sass2css, html2ejs, ts2js);

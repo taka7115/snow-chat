@@ -7,14 +7,15 @@
     "node": "16.17.0"
   },
   "scripts": {
+    "ts": "gulp ts",
     "dev": "gulp dev",
     "build": "gulp build",
     "server": "run-s server:*",
     "server:open": "opener http://localhost:3000/",
-    "server:execution": "node server-dev.js",
+    "server:execution": "node server.js",
     "start": "run-s start:*",
     "start:setup": "npm i",
-    "start:execution": "node server-pro.js"
+    "start:execution": "node server.js"
   },
   "author": "",
   "license": "ISC",
