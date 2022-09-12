@@ -107,24 +107,6 @@ const ts2js = (done) => {
   done();
 };
 
-// server
-// const browser = (done) => {
-//   browserSync({
-//     server: {
-//       proxy: "localhost:3000", // expressで動いているport指定
-//       baseDir: HTDOCS,
-//     },
-//     port: 3000,
-//     startPath: `${BASE_PATH}`,
-//     ghostMode: false
-//   });
-//   gulp.watch([`${SRC}/assets/scss/**/*.scss`]).on('change', gulp.series(sass2css, browserSync.reload));
-//   gulp.watch([`${SRC}/assets/js/**/*.ts`, `${SRC}/assets/js/**/*.vue`]).on('change', gulp.series(ts2js));
-//   gulp.watch([`${SRC}/**/*.ejs`]).on('change', gulp.series(html2ejs, browserSync.reload));
-
-//   done();
-// };
-
 const watch = (done) => {
   gulp.watch([`${SRC}/assets/scss/**/*.scss`]).on('change', gulp.series(sass2css));
   gulp.watch([`${SRC}/assets/js/**/*.ts`, `${SRC}/assets/js/**/*.vue`]).on('change', gulp.series(ts2js));

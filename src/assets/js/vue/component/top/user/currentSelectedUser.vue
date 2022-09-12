@@ -16,18 +16,7 @@
 </template>
 
 <script setup lang="ts">
-// import axios, { AxiosInstance } from "axios";
 import { computed, inject, ref, Ref, onMounted, nextTick, watch } from 'vue';
-
-// const apiClient: AxiosInstance = axios.create({
-//   // APIのURI
-//   baseURL: 'http://localhost:3000',
-//   // リクエストヘッダ
-//   headers: {
-//     'Content-type': 'application/json',
-//     'Accept': 'image/*'
-//   },
-// });
 
 // Inject
 const socket: any = inject('$socket');
