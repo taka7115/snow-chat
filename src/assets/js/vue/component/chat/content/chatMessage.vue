@@ -1,10 +1,6 @@
 <template>
-  <div
-    class="chatMessage"
-    v-for="item in messageList"
-    :key="item.time"
-    :class="{ 'is-mine': checkIfMessageIsMine(item) }"
-  >
+  <div class="chatMessage" v-for="item in messageList" :key="item.time"
+    :class="{ 'is-mine': checkIfMessageIsMine(item) }">
     <div class="chatMessage__item">
       <div class="chatMessage__user">
         <span class="chatMessage__userName">{{ item.user.name }}</span>
@@ -16,7 +12,7 @@
         <p class="chatMessage__commentText">{{ item.text }}</p>
       </div>
       <time class="chatMessage__time" :datetime="item.time">{{
-        item.time
+      item.time
       }}</time>
     </div>
   </div>
@@ -120,9 +116,10 @@ socket.on("ioResponseRoomInfo", (list) => {
     overflow: hidden;
 
     img {
-      display: block;
-      width: 120%;
-      height: 120%;
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: cover;
     }
   }
 
