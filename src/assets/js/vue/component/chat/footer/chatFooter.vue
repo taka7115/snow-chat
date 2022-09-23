@@ -37,10 +37,10 @@ type MessageType = {
  * @returns {void}
  */
 const updateMessageList = () => {
-  const time = new Date(); //  現在日時を得る
-  const hour = time.getHours(); // 時を抜き出す
+  const time = new Date();
+  const hour = time.getHours();
   const hourText = hour.toString().padStart(2, '0');
-  const min = time.getMinutes(); // 分を抜き出す
+  const min = time.getMinutes();
   const minText = min.toString().padStart(2, '0');
   const timeText = `${hourText}:${minText}`;
   const newMessage: MessageType = {

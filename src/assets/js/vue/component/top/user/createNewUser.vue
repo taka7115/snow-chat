@@ -10,7 +10,7 @@
       <textarea name="enterBoxTextarea" id="enterBoxTextarea" class="enterBox__textarea" placeholder="Enter User Name"
         rows="1" maxlength="20" @change="checkTexts" @keyup="checkTexts" ref="textarea"></textarea>
       <button class="enterBox__btn" ref="btn" @click="clicked = false; addUserToUserList()">
-        <img src="/assets/img/icon-create.svg" alt="追加する">
+        <img src="/assets/img/icon-create.svg" alt="add a room">
       </button>
     </div>
   </div>

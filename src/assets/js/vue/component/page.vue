@@ -6,3 +6,10 @@
 
 <script setup lang="ts">
 </script>
+
+
+<style scoped lang="scss">
+.content {
+    position: relative;
+}
+</style>

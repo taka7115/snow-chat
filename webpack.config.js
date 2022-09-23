@@ -3,6 +3,7 @@ const {
   VueLoaderPlugin
 } = require('vue-loader')
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   /**
@@ -77,14 +78,18 @@ module.exports = {
       'vue': 'vue/dist/vue.esm-bundler.js'
     }
   },
-  /**
-   * when use jquery
-   */
   plugins: [
     new VueLoaderPlugin()
   ],
   watchOptions: {
     ignored: /node_modules/ //正規表現で指定
   },
-
+  /**
+   * bundle.js.LICENSE.txtを出力しない
+   */
+  optimization: {
+    minimizer: [new TerserPlugin({
+      extractComments: false,
+    })],
+  },
 };

@@ -8,7 +8,7 @@
         <option :value="room" v-for="(room, index) in globalProps.$myClient.room" :key="room" :selected="checkSelected(index)">{{ room }}</option>
       </select>
       <router-link to="/chat" class="roomBox__btn" @click="confirmRoomIndex(); addToRoomInfo(); prepareForNextPage();">
-        <img src="/assets/img/icon-select.svg" alt="選択してチャットルームに入る">
+        <img src="/assets/img/icon-select.svg" alt="enter to chat room">
       </router-link>
     </div>
     <p class="roombox__note"></p>

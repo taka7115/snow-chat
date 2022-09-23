@@ -1,3 +1,5 @@
+const { convertToObject } = require("typescript");
+
 (function () {
   const express = require("express");
   const http = require("http");
@@ -27,6 +29,10 @@
    */
   server.listen(PORT);
 
+
+  /**
+   * upload image↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+   */
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, `${path.resolve('./public/uploaded/')}`); // Absolute path. Folder must exist, will not be created for you.
@@ -36,42 +42,19 @@
     }
   })
 
-// response to uploaded image
-const upload = multer({ storage: storage });
-
-app.post('/upload', upload.single('userIcon'), (req, res) => {
-  const imagePath = `/uploaded/${req.file.originalname}`;
-  // ↓if JSON send↓
-  // res.send(JSON.stringify({
-  //   imagePath: imagePath
-  // }));
-  res.send(imagePath);
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // response to uploaded image
+  const upload = multer({ storage: storage });
+  app.post('/upload', upload.single('userIcon'), (req, res) => {
+    const imagePath = `/uploaded/${req.file.originalname}`;
+    // ↓if JSON send↓
+    // res.send(JSON.stringify({
+    //   imagePath: imagePath
+    // }));
+    res.send(imagePath);
+  })
+  /**
+   * upload image↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+   */
 
 
 
@@ -121,11 +104,12 @@ app.post('/upload', upload.single('userIcon'), (req, res) => {
      * @param {object} myClient
      */
     socket.on("ioUpdateMyClientOfServer", (myClient) => {
-      clientList.forEach((client, i)=>{
-        if(client.id === myClient.id) {
+      clientList.forEach((client, i) => {
+        if (client.id === myClient.id) {
           clientList[i] = myClient;
         }
       });
+      socket.emit("ioAllDataOfServer", clientList);
     });
 
     /**
@@ -133,22 +117,21 @@ app.post('/upload', upload.single('userIcon'), (req, res) => {
      * @param {object} myClient
      */
     socket.on("ioUpdateRoomInfoOfServer", (roomName) => {
-      if(!(roomInfo.find((room)=> Object.keys(room)[0] === roomName))) {
+      if (!(roomInfo.find((room) => Object.keys(room)[0] === roomName))) {
         const newRoom = {
-          [roomName] : []
+          [roomName]: []
         }
         roomInfo.push(newRoom);
       }
     });
 
     /**
-     * update roomInfo of server
+     * response roomInfo of server
      * @param {object} myClient
      */
-     socket.on("ioRequestRoomInfo", (roomName) => {
-       const roomData = roomInfo.filter((room)=>Object.keys(room)[0] === roomName);
-       const messageList = Object.values(roomData)[0][roomName];
-       console.log(messageList);
+    socket.on("ioRequestRoomInfo", (roomName) => {
+      const roomData = roomInfo.filter((room) => Object.keys(room)[0] === roomName);
+      const messageList = Object.values(roomData)[0][roomName];
       socket.emit("ioResponseRoomInfo", messageList);
     });
 
@@ -162,10 +145,29 @@ app.post('/upload', upload.single('userIcon'), (req, res) => {
       const newMessage = messageInfo[1];
 
       roomInfo.forEach((room, i) => {
-        if(Object.keys(room)[0] === roomName) {
+        if (Object.keys(room)[0] === roomName) {
           roomInfo[i][roomName].push(newMessage);
         }
         socket.emit("ioResponseRoomInfo", roomInfo[i][roomName]);
+      });
+    });
+
+    /**
+     * reflect it in messages if icon changed
+     * @param {string} id
+     */
+    socket.on("ioReflectNewIconForMessages", (id, newIcon) => {
+      if (roomInfo === []) {
+        return;
+      }
+      roomInfo.map((room, i) => {
+        Object.values(room).map((messages, j) => {
+          messages.map((message, k) => {
+            if (message.clientId === id) {
+              message.user.path = newIcon;
+            }
+          });
+        });
       });
     });
   });

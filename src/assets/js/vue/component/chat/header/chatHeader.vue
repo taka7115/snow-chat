@@ -2,14 +2,14 @@
   <div class="chatHeader">
     <div class="chatHeader__inner">
       <router-link to="/" class="chatHeader__back">
-        <img :src="'/assets/img/icon-back.svg'" alt="前のページに戻る">
+        <img :src="'/assets/img/icon-back.svg'" alt="back to the previous">
       </router-link>
       <h1 class="chatHeader__roomName">{{roomName}}</h1>
       <button class="chatHeader__photo">
-        <img :src="'/assets/img/icon-photo.svg'" alt="このチャットルームでアップロードされた写真一覧を見る">
+        <img :src="'/assets/img/icon-photo.svg'" alt="open an image-picker-screen to upload an image">
       </button>
       <button class="chatHeader__search">
-        <img :src="'/assets/img/icon-search.svg'" alt="このチャットルームのコメントからテキストを検索する">
+        <img :src="'/assets/img/icon-search.svg'" alt="search for a specific text in this chat room">
       </button>
     </div>
   </div>

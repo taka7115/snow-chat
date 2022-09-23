@@ -1,6 +1,10 @@
 <template>
-  <div class="chatMessage" v-for="item in messageList" :key="item.time"
-    :class="{ 'is-mine': checkIfMessageIsMine(item) }">
+  <div
+    class="chatMessage"
+    v-for="item in messageList"
+    :key="item.time"
+    :class="{ 'is-mine': checkIfMessageIsMine(item) }"
+  >
     <div class="chatMessage__item">
       <div class="chatMessage__user">
         <span class="chatMessage__userName">{{ item.user.name }}</span>
@@ -12,21 +16,21 @@
         <p class="chatMessage__commentText">{{ item.text }}</p>
       </div>
       <time class="chatMessage__time" :datetime="item.time">{{
-      item.time
+        item.time
       }}</time>
     </div>
   </div>
 </template>
 
 <script setup lang='ts'>
-import { computed, inject, reactive, ref, Ref, isReactive } from 'vue';
+import { computed, inject, reactive, ref, Ref, isReactive } from "vue";
 
 // Inject
-const socket: any = inject('$socket');
-const globalProps: any = inject('$globalProps');
+const socket: any = inject("$socket");
+const globalProps: any = inject("$globalProps");
 // room name
 const roomName = globalProps.$myClient.room[globalProps.$myClient.roomIndex];
-const defaultImg = '/assets/img/img-user-01.jpg';
+const defaultImg = "/assets/img/img-user-01.jpg";
 
 // Type
 type MessageType = {
@@ -56,9 +60,8 @@ const checkIfMessageIsMine = (item) => {
  * reflect messages of the room
  * @param {object} room
  */
-socket.on('ioResponseRoomInfo', (list) => {
+socket.on("ioResponseRoomInfo", (list) => {
   messageList.value = list;
-  console.log(messageList);
 });
 </script>
 

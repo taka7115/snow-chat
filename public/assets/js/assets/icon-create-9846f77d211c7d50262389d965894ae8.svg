@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  <g id="add" transform="translate(-950 -565)">
-    <path id="パス_24" data-name="パス 24" d="M8,0A8,8,0,1,1,0,8,8,8,0,0,1,8,0Z" transform="translate(950 565)" fill="#939393"/>
-    <path id="パス_25" data-name="パス 25" d="M0,0H6" transform="translate(955 573)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
-    <path id="パス_26" data-name="パス 26" d="M0,0H6" transform="translate(958 570) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
-  </g>
-</svg>

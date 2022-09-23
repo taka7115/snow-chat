@@ -1,11 +1,15 @@
 /**
  * import
  */
-import { createApp } from "vue";
+import {
+  createApp
+} from "vue";
 import globalProps from "./store/globalProps";
 import router from "./router/router";
 
-import { io } from "socket.io-client";
+import {
+  io
+} from "socket.io-client";
 /**
  * Component
  */
@@ -24,7 +28,6 @@ const App = () => {
     forceNew: true,
   };
   const host = location.host;
-  console.log(host);
   const socket = io(`${host}/`, options);
   let myId = storageId || null;
 
@@ -44,15 +47,15 @@ const App = () => {
           myId = tokenAndClient[0];
           globalProps.$myClient = tokenAndClient[1];
 
-          resolve("foo"); // after resolve(), setApp() will be executed
+          resolve("resolve"); // after resolve(), setApp() will be executed
         });
-        // if id in Storage
+        // if id in Storage, reflect all data stored in server
       } else {
         socket.on("ioAllDataOfServer", (clientList) => {
           for (const client of clientList) {
             if (client.id === myId) {
               globalProps.$myClient = client;
-              resolve("foo"); // after resolve(), setApp() will be executed
+              resolve("resolve"); // after resolve(), setApp() will be executed
             }
           }
         });

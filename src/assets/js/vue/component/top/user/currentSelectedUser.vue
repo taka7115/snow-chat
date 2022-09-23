@@ -1,18 +1,16 @@
 <template>
-  <!-- <form action="upload" method="POST" enctype="multipart/form-data"> -->
-    <button class="user" v-if="selectedUser">
-      <div class="user__icon">
-        <input type="file" id="iconChange" name="upName" class="user__iconChangeInput" accept="image/*" ref="input">
-        <label for="iconChange" class="user__iconChangeLabel">
-          <img src="/assets/img/icon-photo.svg" alt="change this user icon" width="20" height="20">
-        </label>
+  <div class="user" v-if="selectedUser">
+    <div class="user__icon">
+      <input type="file" id="iconChange" name="upName" class="user__iconChangeInput" accept="image/*" ref="input">
+      <label for="iconChange" class="user__iconChangeLabel">
+        <img src="/assets/img/icon-photo.svg" alt="change this user icon" width="20" height="20">
+      </label>
       <div class="user__iconWrap">
         <img :src="selectedUser.path" alt="">
       </div>
-      </div>
-      <p class="user__name">{{     selectedUser.name     }}</p>
-    </button>
-  <!-- </form> -->
+    </div>
+    <p class="user__name">{{ selectedUser.name }}</p>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -52,7 +50,7 @@ const changeUserIcon = () => {
       fetch(request)
         .then(response => {
           if (!response.ok) {
-            if(response.status === 404) {
+            if (response.status === 404) {
               throw new Error('Something wrong with HTTP communication');
             } else if (response.status === 500) {
               throw new Error("Folder to put images doesn't exsist");
@@ -65,6 +63,7 @@ const changeUserIcon = () => {
         .then(data => {
           globalProps.$myClient.userList[globalProps.$myClient.userIndex].path = data;
           socket.emit('ioUpdateMyClientOfServer', globalProps.$myClient);
+          socket.emit('ioReflectNewIconForMessages', globalProps.$myClient.id, globalProps.$myClient.userList[globalProps.$myClient.userIndex].path);
         })
         .catch((error) => {
           alert(error);
@@ -125,12 +124,12 @@ if (!selectedUser.value) {
     border: 1px solid #fff;
     box-shadow: 0px 0px 8px #fff;
     margin-right: 0;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     overflow: hidden;
 
     img {
-      min-width: 100%;
-      min-height: 100%;
+      width: 100%;
+      height: 100%;
       object-position: center;
       object-fit: cover;
     }

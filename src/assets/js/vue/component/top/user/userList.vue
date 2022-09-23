@@ -8,7 +8,7 @@
       <p class="user__name">{{ user.name }}</p>
     </button>
     <div class="user__deleteWrap" @click="removeUserFromUserList($event, index)">
-      <button class="user__deleteBtn"><img src="/assets/img/icon-delete.svg" alt="このアカウントを削除する"></button>
+      <button class="user__deleteBtn"><img src="/assets/img/icon-delete.svg" alt="delete this account"></button>
     </div>
   </li>
 </template>
@@ -33,9 +33,9 @@ const returnUserList = computed(() => {
  * @returns {void}
  */
 const removeUserFromUserList = (e, index) => {
-   e.stopPropagation();
+  e.stopPropagation();
   const parent = e.currentTarget.parentNode;
-  if(parent.classList.contains('is-current')) {
+  if (parent.classList.contains('is-current')) {
     globalProps.$myClient.userIndex = null;
   }
   parent.remove();
@@ -98,9 +98,13 @@ const changeUserIndex = (index) => {
     border-radius: 50%;
     box-shadow: 0px 0px 4px $color-05;
     transform-origin: center center;
+    overflow: hidden;
 
     img {
-      display: none;
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: cover;
     }
   }
 
