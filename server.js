@@ -156,14 +156,14 @@ const { convertToObject } = require("typescript");
      * reflect it in messages if icon changed
      * @param {string} id
      */
-    socket.on("ioReflectNewIconForMessages", (id, newIcon) => {
+    socket.on("ioReflectNewIconForMessages", (name, newIcon) => {
       if (roomInfo === []) {
         return;
       }
       roomInfo.map((room, i) => {
         Object.values(room).map((messages, j) => {
           messages.map((message, k) => {
-            if (message.clientId === id) {
+            if (message.user.name === name) {
               message.user.path = newIcon;
             }
           });

@@ -63,7 +63,7 @@ const changeUserIcon = () => {
         .then(data => {
           globalProps.$myClient.userList[globalProps.$myClient.userIndex].path = data;
           socket.emit('ioUpdateMyClientOfServer', globalProps.$myClient);
-          socket.emit('ioReflectNewIconForMessages', globalProps.$myClient.id, globalProps.$myClient.userList[globalProps.$myClient.userIndex].path);
+          socket.emit('ioReflectNewIconForMessages', globalProps.$myClient.userList[globalProps.$myClient.userIndex].name, globalProps.$myClient.userList[globalProps.$myClient.userIndex].path);
         })
         .catch((error) => {
           alert(error);

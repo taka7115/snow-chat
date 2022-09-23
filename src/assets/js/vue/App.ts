@@ -49,17 +49,17 @@ const App = () => {
 
           resolve("resolve"); // after resolve(), setApp() will be executed
         });
-        // if id in Storage, reflect all data stored in server
-      } else {
-        socket.on("ioAllDataOfServer", (clientList) => {
-          for (const client of clientList) {
-            if (client.id === myId) {
-              globalProps.$myClient = client;
-              resolve("resolve"); // after resolve(), setApp() will be executed
-            }
-          }
-        });
       }
+      
+      // reflect all data stored in server
+      socket.on("ioAllDataOfServer", (clientList) => {
+        for (const client of clientList) {
+          if (client.id === myId) {
+            globalProps.$myClient = client;
+            resolve("resolve"); // after resolve(), setApp() will be executed
+          }
+        }
+      });
 
       /**
        * update client
