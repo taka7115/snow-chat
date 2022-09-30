@@ -67,7 +67,7 @@ const { convertToObject } = require("typescript");
    */
   io.on("connection", (socket) => {
     // emit all data of server side
-    socket.emit("ioAllDataOfServer", clientList);
+    io.emit("ioAllDataOfServer", clientList);
     /**
      * update clientList
      * @param {object} myClient
@@ -96,7 +96,7 @@ const { convertToObject } = require("typescript");
       clientList.push(newClient);
 
       // emit the token to client side
-      socket.emit("ioNewTokenAndClient", [token, newClient]);
+      io.emit("ioNewTokenAndClient", [token, newClient]);
     });
 
     /**
@@ -109,7 +109,7 @@ const { convertToObject } = require("typescript");
           clientList[i] = myClient;
         }
       });
-      socket.emit("ioAllDataOfServer", clientList);
+      io.emit("ioAllDataOfServer", clientList);
     });
 
     /**
@@ -132,7 +132,7 @@ const { convertToObject } = require("typescript");
     socket.on("ioRequestRoomInfo", (roomName) => {
       const roomData = roomInfo.filter((room) => Object.keys(room)[0] === roomName);
       const messageList = Object.values(roomData)[0][roomName];
-      socket.emit("ioResponseRoomInfo", messageList);
+      io.emit("ioResponseRoomInfo", messageList);
     });
 
     /**
@@ -148,7 +148,7 @@ const { convertToObject } = require("typescript");
         if (Object.keys(room)[0] === roomName) {
           roomInfo[i][roomName].push(newMessage);
         }
-        socket.emit("ioResponseRoomInfo", roomInfo[i][roomName]);
+        io.emit("ioResponseRoomInfo", roomInfo[i][roomName]);
       });
     });
 
