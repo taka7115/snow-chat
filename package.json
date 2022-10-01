@@ -6,19 +6,17 @@
   "volta": {
     "node": "16.17.0"
   },
-  "compilerOptions": {
-    "module": "node16"
-  },
+  "type": "module",
   "scripts": {
     "ts": "gulp ts",
     "dev": "gulp dev",
     "build": "gulp build",
     "server": "run-s server:*",
     "server:open": "opener http://localhost:3000/",
-    "server:execution": "node --experimental-modules server/server.mjs",
+    "server:execution": "node server/server.js",
     "start": "run-s start:*",
     "start:setup": "npm i",
-    "start:execution": "node --experimental-modules server/server.mjs"
+    "start:execution": "node server/server.js"
   },
   "author": "",
   "license": "ISC",

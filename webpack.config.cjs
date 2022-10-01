@@ -10,13 +10,12 @@ module.exports = {
    * while development：development
    * just before submission to client：production
    */
-  mode: "development",
+  mode: "production",
   /**
    * choose several different js files
    */
   entry: {
     'bundle': './src/assets/js/main.ts',
-    'api': './src/assets/js/api.ts',
   },
 
   /**
@@ -24,7 +23,7 @@ module.exports = {
    */
   output: {
     path: __dirname,
-    filename: "[name].mjs"
+    filename: "[name].js"
   },
 
   /**

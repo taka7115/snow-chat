@@ -1,31 +1,31 @@
 "use strict";
 
-//common
-const gulp = require('gulp');
-const plumber = require('gulp-plumber'); // Stream中のエラーによる強制停止を防止
-// const browserSync = require("browser-sync"); // ファイルの変更を監視。変更を即座にブラウザーに反映
-const wait = require('gulp-wait'); // 通信環境やファイル容量次第でコンパイルエラーが起こる際に使用
+import gulp from 'gulp';
+import plumber from 'gulp-plumber'; // Stream中のエラーによる強制停止を防止
+import wait from 'gulp-wait'; // 通信環境やファイル容量次第でコンパイルエラーが起こる際に使用
 
 // ejs
-const ejs = require('gulp-ejs');
-const rename = require('gulp-rename'); // ファイルのrename
-const replace = require('gulp-replace'); // Stream中に正規表現による文字列置換を行う
+import ejs from 'gulp-ejs';
+import rename from 'gulp-rename'; // ファイルのrename
+import replace from 'gulp-replace'; // Stream中に正規表現による文字列置換を行う
 
 // sass
-// const sass = require('gulp-sass');
-const sass = require('gulp-sass')(require('sass')); // Dart Sass 使用
-const autoprefixer = require("gulp-autoprefixer");
-const cleanCSS = require('gulp-clean-css'); // cssの圧縮
-const sassGlob = require('gulp-sass-glob-use-forward'); // ディレクトリ毎にsassファイルをまとめてimport
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass); // Dart Sass 使用
+
+import autoprefixer from "gulp-autoprefixer";
+import cleanCSS from 'gulp-clean-css'; // cssの圧縮
+import sassGlob from 'gulp-sass-glob-use-forward'; // ディレクトリ毎にsassファイルをまとめてimport
 
 // json
-const data = require('gulp-data'); // meta情報を一括管理
-const fs = require('fs'); // 外部jsonを同期処理読み込み
+import data from 'gulp-data'; // meta情報を一括管理
+import fs from 'fs'; // 外部jsonを同期処理読み込み
 
 // webpack
-const webpack = require("webpack");
-const webpackStream = require("webpack-stream"); // gulpでwebpackを使うために必要なプラグイン
-const webpackConfig = require("./webpack.config"); // webpackの設定ファイルの読み込み
+import webpack from "webpack";
+import webpackStream from "webpack-stream"; // gulpでwebpackを使うために必要なプラグイン
+import webpackConfig from "./webpack.config.cjs"; // webpackの設定ファイルの読み込み
 
 //path
 const SRC = './src';
@@ -117,6 +117,6 @@ const watch = (done) => {
 
 
 // タスクの実行
-exports.dev = gulp.series(sass2css, html2ejs, ts2js, watch);
-exports.ts = gulp.series(html2ejs);
-exports.build = gulp.series(sass2css, html2ejs, ts2js);
+export const dev = gulp.series(sass2css, html2ejs, ts2js, watch);
+export const ts = gulp.series(html2ejs);
+export const build = gulp.series(sass2css, html2ejs, ts2js);

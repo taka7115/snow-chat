@@ -1,4 +1,4 @@
-import ApiServer from "./api.mjs";
+import ApiServer from "./api.js";
 import express from "express";
 import http from "http";
 import path from "path";
@@ -11,18 +11,8 @@ import {
 import multer from "multer";
 
 (function () {
-  // const express = require("express");
-  // const http = require("http");
-  // const path = require('path');
-  // const socketIo = require("socket.io");
   const app = express();
-  // const multer = require('multer')
-  // const crypto = require("crypto");F
-
   app.use(express.static("public")); // get document root
-  // const server = http.Server(app); // define server
-
-  // const io = socketIo(server); // define io
 
   const httpServer = createServer(app);
   const io = new Server(httpServer);
