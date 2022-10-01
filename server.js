@@ -109,6 +109,8 @@ const { convertToObject } = require("typescript");
           clientList[i] = myClient;
         }
       });
+
+      console.table(clientList);
     });
 
     /**
@@ -130,6 +132,8 @@ const { convertToObject } = require("typescript");
      */
     socket.on("ioRequestAllDataOfServer", () => {
       io.emit("ioAllDataOfServer", clientList);
+      console.table('here');
+      console.table(clientList);
     });
 
     /**
