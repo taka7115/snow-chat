@@ -16,7 +16,7 @@
     "server:open": "opener http://localhost:3000/",
     "server:execution": "node server/server.js",
     "start": "run-s start:*",
-    "start:setup": "npm i",
+    "start:setup": "npm ci",
     "start:execution": "node server/server.js"
   },
   "author": "",
