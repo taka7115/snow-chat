@@ -109,7 +109,6 @@ const { convertToObject } = require("typescript");
           clientList[i] = myClient;
         }
       });
-      io.emit("ioAllDataOfServer", clientList);
     });
 
     /**
@@ -123,6 +122,14 @@ const { convertToObject } = require("typescript");
         }
         roomInfo.push(newRoom);
       }
+    });
+
+    /**
+     * response of all data of server
+     * @return {void}
+     */
+    socket.on("ioRequestAllDataOfServer", () => {
+      io.emit("ioAllDataOfServer", clientList);
     });
 
     /**

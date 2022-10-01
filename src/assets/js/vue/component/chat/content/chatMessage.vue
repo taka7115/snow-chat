@@ -57,9 +57,6 @@ const checkIfMessageIsMine = (item) => {
  * @param {object} room
  */
 socket.on("ioResponseRoomInfo", (list) => {
-  console.log(list);
-  console.log(messageList.value);
-  alert('ioResponseRoomInfo');
   messageList.value = list;
 });
 </script>

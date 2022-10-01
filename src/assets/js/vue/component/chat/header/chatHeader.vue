@@ -1,7 +1,7 @@
 <template>
   <div class="chatHeader">
     <div class="chatHeader__inner">
-      <router-link to="/" class="chatHeader__back">
+      <router-link to="/" class="chatHeader__back" @click="requestAllData();">
         <img :src="'/assets/img/icon-back.svg'" alt="back to the previous">
       </router-link>
       <h1 class="chatHeader__roomName">{{roomName}}</h1>
@@ -20,10 +20,18 @@ import { inject } from "vue";
 
 // Inject
 const globalProps: any = inject('$globalProps');
+const socket: any = inject("$socket");
 
 // room name
 const roomName = globalProps.$myClient.room[globalProps.$myClient.roomIndex];
 
+/**
+ * refer to roomInfo
+ * @returns {void}
+ */
+const requestAllData = () => {
+  socket.emit('ioRequestAllDataOfServer');
+}
 
 </script>
 

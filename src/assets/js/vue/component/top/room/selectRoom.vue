@@ -7,7 +7,7 @@
         <option value="">Select Room Name</option>
         <option :value="room" v-for="(room, index) in globalProps.$myClient.room" :key="room" :selected="checkSelected(index)">{{ room }}</option>
       </select>
-      <router-link to="/chat" class="roomBox__btn" @click="confirmRoomIndex(); addToRoomInfo(); prepareForNextPage();">
+      <router-link to="/chat" class="roomBox__btn" @click="confirmRoomIndex(); addToRoomInfo(); prepareForNextPage(); requestAllData();">
         <img src="/assets/img/icon-select.svg" alt="enter to chat room">
       </router-link>
     </div>
@@ -81,6 +81,14 @@ const addToRoomInfo = () => {
  */
 const prepareForNextPage = () => {
   socket.emit('ioRequestRoomInfo', globalProps.$myClient.room[globalProps.$myClient.roomIndex]);
+}
+
+/**
+ * refer to roomInfo
+ * @returns {void}
+ */
+const requestAllData = () => {
+  socket.emit('ioRequestAllDataOfServer');
 }
 
 const checkSelected = (index)=>{
