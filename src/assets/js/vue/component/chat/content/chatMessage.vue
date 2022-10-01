@@ -36,7 +36,7 @@ type MessageType = {
   time: string | null | undefined;
 };
 
-// todo：reflect queryGetRoomInfo
+// reflect queryGetRoomInfo
 let messageList = ref<Array<MessageType>>([]);
 
 /**
@@ -56,7 +56,7 @@ const checkIfMessageIsMine = (item) => {
  * update room info
  * @param {object} room
  */
-$apiClient.getRoomInfo(messageList);
+messageList.value = $apiClient.getRoomInfo();
 </script>
 
 <style scoped lang='scss'>
