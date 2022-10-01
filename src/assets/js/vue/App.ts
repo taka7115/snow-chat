@@ -46,8 +46,6 @@ const App = () => {
 
           myId = tokenAndClient[0];
           globalProps.$myClient = tokenAndClient[1];
-
-          resolve("resolve"); // after resolve(), setApp() will be executed
         });
       }
       
