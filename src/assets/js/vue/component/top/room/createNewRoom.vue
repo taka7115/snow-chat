@@ -15,8 +15,8 @@
 import { inject, ref, Ref } from "vue";
 
 // Inject
-const socket: any = inject('$socket');
- const globalProps:any = inject('$globalProps');
+ const $globalProps:any = inject('$globalProps');
+const $apiClient: any = inject("$apiClient");
 
 // Ref
 const btn: Ref<HTMLButtonElement> = ref(null);
@@ -42,13 +42,13 @@ const checkTexts = (e) => {
  */
 const pushNewRoom = () => {
   // error if same name of room exsits
-  if(globalProps.$myClient.room.find((room)=>textarea.value.value === room)) {
+  if($globalProps.$myClient.room.find((room)=>textarea.value.value === room)) {
     alert('a room of this name has been already exsists');
     textarea.value.value = '';
     return;
   }
-  globalProps.$myClient.room.push(textarea.value.value);
-  socket.emit('ioUpdateMyClientOfServer', globalProps.$myClient);
+  $globalProps.$myClient.room.push(textarea.value.value);
+  $apiClient.putMyClient($globalProps.$myClient);
   textarea.value.value = '';
 }
 

@@ -19,7 +19,7 @@
 <script setup lang="ts">
 // Vue Options
 import { computed, ref, Ref, inject } from "vue";
-const socket: any = inject('$socket');
+const $apiClient: any = inject("$apiClient");
 
 // Ref
 const btn: Ref<HTMLElement> = ref(null);
@@ -27,14 +27,14 @@ const textarea: Ref<HTMLTextAreaElement> = ref(null);
 const clicked: Ref<boolean> = ref(false);
 
 // Inject
-const globalProps: any = inject('$globalProps');
+const $globalProps: any = inject('$globalProps');
 
 /**
  * check user account length
  * @returns {boolean}
  */
 const checkUserAccountLength = computed(() => {
-  if (globalProps.$myClient.userList.length < 3 || undefined) {
+  if ($globalProps.$myClient.userList.length < 3 || undefined) {
     return true;
   } else {
     return false;
@@ -55,12 +55,12 @@ const checkTexts = (e: any): void => {
 }
 
 /**
- * socket.io_emmit
+ * add user to userList
  * @returns {void}
  */
 const addUserToUserList = (): void => {
     // error if same name of room exsits
-  if(globalProps.$myClient.userList.find((user)=> textarea.value.value === user.name)) {
+  if($globalProps.$myClient.userList.find((user)=> textarea.value.value === user.name)) {
     alert('a user of this name has been already exsists');
     return;
   }
@@ -68,8 +68,8 @@ const addUserToUserList = (): void => {
     name: textarea.value.value,
     path: "/assets/img/img-user-01.jpg"
   }
-  globalProps.$myClient.userList.push(user);
-  socket.emit('ioUpdateMyClientOfServer', globalProps.$myClient);
+  $globalProps.$myClient.userList.push(user);
+  $apiClient.putMyClient($globalProps.$myClient);
 }
 
 </script>

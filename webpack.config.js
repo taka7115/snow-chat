@@ -15,15 +15,16 @@ module.exports = {
    * choose several different js files
    */
   entry: {
-    'bundle.js': './src/assets/js/main.ts',
+    'bundle': './src/assets/js/main.ts',
+    'api': './src/assets/js/api.ts',
   },
 
   /**
    * path where bundle file is output
    */
   output: {
-    path: __dirname + '/../',
-    filename: "bundle.js"
+    path: __dirname,
+    filename: "[name].mjs"
   },
 
   /**

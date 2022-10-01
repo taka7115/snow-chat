@@ -38,7 +38,6 @@ import UserList from "./user/userList.vue";
 import CreateNewUser from "./user/createNewUser.vue";
 import CreateNewRoom from "./room/createNewRoom.vue";
 import SelectRoom from "./room/selectRoom.vue";
-import { onMounted } from "@vue/runtime-core";
 
 const backgroundImage: string = "/assets/img/bg-mountain.svg";
 

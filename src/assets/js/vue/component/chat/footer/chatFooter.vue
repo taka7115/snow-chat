@@ -14,15 +14,13 @@
 
 <script setup lang="ts">
 import { ref, Ref, inject } from "vue";
-
 // Ref
 const textarea: Ref<HTMLTextAreaElement> = ref(null);
-
 // Inject
-const socket: any = inject('$socket');
-const globalProps: any = inject('$globalProps');
-// room name
-const roomName = globalProps.$myClient.room[globalProps.$myClient.roomIndex];
+const $globalProps: any = inject('$globalProps');
+const $apiClient: any = inject("$apiClient");
+// Variable
+const roomName = $globalProps.$myClient.room[$globalProps.$myClient.roomIndex];
 
 // Type
 type MessageType = {
@@ -44,12 +42,12 @@ const updateMessageList = () => {
   const minText = min.toString().padStart(2, '0');
   const timeText = `${hourText}:${minText}`;
   const newMessage: MessageType = {
-    'clientId': globalProps.$myClient.id,
-    'user': globalProps.$myClient.userList[globalProps.$myClient.userIndex],
+    'clientId': $globalProps.$myClient.id,
+    'user': $globalProps.$myClient.userList[$globalProps.$myClient.userIndex],
     'text': textarea.value.value,
     'time': timeText
   }
-  socket.emit('ioAddChatMessage', [roomName, newMessage]);
+  $apiClient.putChatMessage(roomName, newMessage);
 }
 
 /**

@@ -7,6 +7,8 @@ import {
 import globalProps from "./store/globalProps";
 import router from "./router/router";
 
+import ApiClient from "../api";
+
 import {
   io
 } from "socket.io-client";
@@ -14,6 +16,16 @@ import {
  * Component
  */
 import Page from "./component/page.vue";
+
+/**
+ * set global Variable
+ */
+const options = {
+  forceNew: true,
+};
+const host = location.host;
+const socket = io(`${host}/`, options);
+const apiClient = new ApiClient(socket);
 
 /**
  * set Variable
@@ -24,33 +36,30 @@ const App = () => {
    * set socket
    * @returns {String}
    */
-  const options = {
-    forceNew: true,
-  };
-  const host = location.host;
-  const socket = io(`${host}/`, options);
   let myId = storageId || null;
 
   const setSocket = new Promise((resolve, reject) => {
     socket.on("connect", () => {
       // if no id in Storage
       if (!myId) {
-        socket.emit("ioRequireToken");
+        socket.emit("queryReceiveRequireToken");
         /**
          * get token from server side
          * @param {Array<string, Array>} TokenAndClient
          */
-        socket.on("ioNewTokenAndClient", (tokenAndClient) => {
+        socket.on("queryResponseNewTokenAndClient", (tokenAndClient) => {
           // set id in storage
           sessionStorage.setItem("id", tokenAndClient[0]);
 
           myId = tokenAndClient[0];
           globalProps.$myClient = tokenAndClient[1];
+
+          resolve("resolve"); // after resolve(), setApp() will be executed
         });
       }
       
       // reflect all data stored in server
-      socket.on("ioAllDataOfServer", (clientList) => {
+      socket.on("queryResponseAllDataStoredInServer", (clientList) => {
         for (const client of clientList) {
           if (client.id === myId) {
             globalProps.$myClient = client;
@@ -88,9 +97,8 @@ const App = () => {
 
     // provide & mount
     router.isReady().then(() => {
-      vm.provide("$socket", socket);
-
       vm.provide("$globalProps", globalProps);
+      vm.provide("$apiClient", apiClient);
       vm.mount("#app");
     });
   };

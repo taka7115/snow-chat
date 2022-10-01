@@ -22,10 +22,10 @@
 import { computed, inject, reactive, ref, Ref, isReactive } from "vue";
 
 // Inject
-const socket: any = inject("$socket");
-const globalProps: any = inject("$globalProps");
-// room name
-const roomName = globalProps.$myClient.room[globalProps.$myClient.roomIndex];
+const $globalProps: any = inject("$globalProps");
+const $apiClient: any = inject("$apiClient");
+// Variable
+const roomName = $globalProps.$myClient.room[$globalProps.$myClient.roomIndex];
 const defaultImg = "/assets/img/img-user-01.jpg";
 
 // Type
@@ -36,7 +36,7 @@ type MessageType = {
   time: string | null | undefined;
 };
 
-// todo：reflect ioResponseRoomInfo
+// todo：reflect queryGetRoomInfo
 let messageList = ref<Array<MessageType>>([]);
 
 /**
@@ -46,19 +46,17 @@ let messageList = ref<Array<MessageType>>([]);
 const checkIfMessageIsMine = (item) => {
   if (
     item.user.name ===
-    globalProps.$myClient.userList[globalProps.$myClient.userIndex].name
+    $globalProps.$myClient.userList[$globalProps.$myClient.userIndex].name
   ) {
     return true;
   }
 };
 
 /**
- * reflect messages of the room
+ * update room info
  * @param {object} room
  */
-socket.on("ioResponseRoomInfo", (list) => {
-  messageList.value = list;
-});
+$apiClient.getRoomInfo(messageList);
 </script>
 
 <style scoped lang='scss'>

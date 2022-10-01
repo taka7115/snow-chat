@@ -17,20 +17,18 @@
 
 <script setup lang="ts">
 import { inject } from "vue";
-
 // Inject
-const globalProps: any = inject('$globalProps');
-const socket: any = inject("$socket");
-
-// room name
-const roomName = globalProps.$myClient.room[globalProps.$myClient.roomIndex];
+const $globalProps: any = inject('$globalProps');
+const $apiClient: any = inject("$apiClient");
+// Variable
+const roomName = $globalProps.$myClient.room[$globalProps.$myClient.roomIndex];
 
 /**
  * refer to roomInfo
  * @returns {void}
  */
 const requestAllData = () => {
-  socket.emit('ioRequestAllDataOfServer');
+  $apiClient.requestAllDataStoredInServer();
 }
 
 </script>

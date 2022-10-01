@@ -1,6 +1,6 @@
 <template>
   <li class="user" v-for="(user, index) in returnUserList" :key="user.name" @click="changeUserIndex(index)"
-    :class="{ 'is-current': index === globalProps.$myClient.userIndex }">
+    :class="{ 'is-current': index === $globalProps.$myClient.userIndex }">
     <button class="user__btn">
       <div class="user__icon">
         <img :src="user.path" alt="">
@@ -17,15 +17,15 @@
 import { inject, computed } from "vue";
 
 // Inject
-const socket: any = inject('$socket');
-const globalProps: any = inject('$globalProps');
+const $globalProps: any = inject('$globalProps');
+const $apiClient: any = inject("$apiClient");
 
 /**
  * return_userList
  * @returns {Array}
  */
 const returnUserList = computed(() => {
-  return globalProps.$myClient.userList;
+  return $globalProps.$myClient.userList;
 });
 
 /**
@@ -36,11 +36,11 @@ const removeUserFromUserList = (e, index) => {
   e.stopPropagation();
   const parent = e.currentTarget.parentNode;
   if (parent.classList.contains('is-current')) {
-    globalProps.$myClient.userIndex = null;
+    $globalProps.$myClient.userIndex = null;
   }
   parent.remove();
-  globalProps.$myClient.userList.splice(index, 1);
-  socket.emit('ioUpdateMyClientOfServer', globalProps.$myClient);
+  $globalProps.$myClient.userList.splice(index, 1);
+  $apiClient.putMyClient($globalProps.$myClient);
 }
 
 /**
@@ -48,8 +48,8 @@ const removeUserFromUserList = (e, index) => {
  * @returns {void}
  */
 const changeUserIndex = (index) => {
-  globalProps.$myClient.userIndex = index;
-  socket.emit('ioUpdateMyClientOfServer', globalProps.$myClient);
+  $globalProps.$myClient.userIndex = index;
+  $apiClient.putMyClient($globalProps.$myClient);
 }
 
 </script>

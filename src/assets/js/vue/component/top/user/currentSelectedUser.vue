@@ -17,13 +17,13 @@
 import { computed, inject, ref, Ref, onMounted, nextTick, watch } from 'vue';
 
 // Inject
-const socket: any = inject('$socket');
-const globalProps: any = inject('$globalProps');
+const $globalProps: any = inject('$globalProps');
+const $apiClient: any = inject("$apiClient");
 
 // Ref
 const input: Ref<HTMLInputElement> = ref(null);
 
-const selectedUser = computed(() => globalProps.$myClient.userList[globalProps.$myClient.userIndex]);
+const selectedUser = computed(() => $globalProps.$myClient.userList[$globalProps.$myClient.userIndex]);
 
 /**
 * change user icon
@@ -61,9 +61,9 @@ const changeUserIcon = () => {
         // ↓if JSON send↓
         // .then(response => response.json())
         .then(data => {
-          globalProps.$myClient.userList[globalProps.$myClient.userIndex].path = data;
-          socket.emit('ioUpdateMyClientOfServer', globalProps.$myClient);
-          socket.emit('ioReflectNewIconForMessages', globalProps.$myClient.userList[globalProps.$myClient.userIndex].name, globalProps.$myClient.userList[globalProps.$myClient.userIndex].path);
+          $globalProps.$myClient.userList[$globalProps.$myClient.userIndex].path = data;
+          $apiClient.putMyClient($globalProps.$myClient);
+          $apiClient.putNewIconForMessages($globalProps.$myClient.userList[$globalProps.$myClient.userIndex].name, $globalProps.$myClient.userList[$globalProps.$myClient.userIndex].path);
         })
         .catch((error) => {
           alert(error);

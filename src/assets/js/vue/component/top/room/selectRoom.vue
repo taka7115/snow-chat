@@ -5,7 +5,7 @@
       <select name="roomBoxSelect" id="roomBoxSelect" class="roomBox__select" ref="select" required
         @change="switchActive">
         <option value="">Select Room Name</option>
-        <option :value="room" v-for="(room, index) in globalProps.$myClient.room" :key="room" :selected="checkSelected(index)">{{ room }}</option>
+        <option :value="room" v-for="(room, index) in $globalProps.$myClient.room" :key="room" :selected="checkSelected(index)">{{ room }}</option>
       </select>
       <router-link to="/chat" class="roomBox__btn" @click="confirmRoomIndex(); addToRoomInfo(); prepareForNextPage(); requestAllData();">
         <img src="/assets/img/icon-select.svg" alt="enter to chat room">
@@ -19,8 +19,8 @@
 import { inject, watch, nextTick, ref, Ref } from "vue";
 
 // Inject
-const socket: any = inject("$socket");
-const globalProps: any = inject('$globalProps');
+const $globalProps: any = inject('$globalProps');
+const $apiClient: any = inject("$apiClient");
 
 // Ref
 const select: Ref<HTMLSelectElement> = ref(null);
@@ -41,7 +41,7 @@ const returnIsRoomChecked = () => {
  * @returns {void}
  */
 const checkIsUserSelected = () => {
-  if (typeof globalProps.$myClient.userIndex === "number") {
+  if (typeof $globalProps.$myClient.userIndex === "number") {
     return true;
   }
 };
@@ -63,8 +63,8 @@ const switchActive = () => {
  * @returns {void}
  */
 const confirmRoomIndex = () => {
-  globalProps.$myClient.roomIndex = select.value.selectedIndex - 1;
-  socket.emit('ioUpdateMyClientOfServer', globalProps.$myClient);
+  $globalProps.$myClient.roomIndex = select.value.selectedIndex - 1;
+  $apiClient.putMyClient($globalProps.$myClient);
 }
 
 /**
@@ -72,7 +72,7 @@ const confirmRoomIndex = () => {
  * @returns {void}
  */
 const addToRoomInfo = () => {
-  socket.emit('ioUpdateRoomInfoOfServer', globalProps.$myClient.room[globalProps.$myClient.roomIndex]);
+  $apiClient.putRoomInfo($globalProps.$myClient.room[$globalProps.$myClient.roomIndex]);
 }
 
 /**
@@ -80,7 +80,7 @@ const addToRoomInfo = () => {
  * @returns {void}
  */
 const prepareForNextPage = () => {
-  socket.emit('ioRequestRoomInfo', globalProps.$myClient.room[globalProps.$myClient.roomIndex]);
+  $apiClient.requestRoomInfo($globalProps.$myClient.room[$globalProps.$myClient.roomIndex]);
 }
 
 /**
@@ -88,11 +88,11 @@ const prepareForNextPage = () => {
  * @returns {void}
  */
 const requestAllData = () => {
-  socket.emit('ioRequestAllDataOfServer');
+  $apiClient.requestAllDataStoredInServer();
 }
 
 const checkSelected = (index)=>{
-  if(globalProps.$myClient.room.length + 1 === index + 2) {
+  if($globalProps.$myClient.room.length + 1 === index + 2) {
     return true;
   }
 };
@@ -102,18 +102,18 @@ const checkSelected = (index)=>{
  * @returns {void}
  */
 nextTick(() => {
-  if(typeof globalProps.$myClient.roomIndex === 'number') {
+  if(typeof $globalProps.$myClient.roomIndex === 'number') {
     const options = select.value.options;
-    options[globalProps.$myClient.roomIndex + 1].selected = true;
+    options[$globalProps.$myClient.roomIndex + 1].selected = true;
   }
   switchActive();
   })
 
 /**
- * watch - when (globalProps.$myClient.userIndex || globalProps.$myClient.room) changes
+ * watch - when ($globalProps.$myClient.userIndex || $globalProps.$myClient.room) changes
  * @returns {void}
  */
-watch(globalProps, () => {
+watch($globalProps, () => {
   /**
    * nextTick
    * @returns {void}
