@@ -1,7 +1,7 @@
 // const stable = require("core-js/stable");
 // const runtime = require("regenerator-runtime/runtime");
-import stable from "core-js/stable/index.js";
-import runtime from "regenerator-runtime/runtime.js";
+import * as stable from "core-js/stable/index.js";
+import * as runtime from "regenerator-runtime/runtime.js";
 
 import express from "express";
 import http from "http";
