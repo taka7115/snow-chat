@@ -1,4 +1,3 @@
-import 'core-js/stable/index.js';
 import regeneratorRuntime from "regenerator-runtime/runtime.js";
 
 import express from "express";
