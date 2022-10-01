@@ -1,5 +1,3 @@
-import regeneratorRuntime from "regenerator-runtime/runtime.js";
-
 import express from "express";
 import http from "http";
 import path from "path";
