@@ -22,8 +22,8 @@ export default class ApiClient {
   /**
    * @return {void}
    */
-  requestAllDataStoredInServer() {
-    this.socket.emit('queryRequestAllDataStoredInServer');
+  requestAllDataStoredInServer(token) {
+    this.socket.emit('queryRequestAllDataStoredInServer', token);
   }
   /**
    * @param {object} myClient

@@ -28,7 +28,7 @@ const roomName = $globalProps.$myClient.room[$globalProps.$myClient.roomIndex];
  * @returns {void}
  */
 const requestAllData = () => {
-  $apiClient.requestAllDataStoredInServer();
+  $apiClient.requestAllDataStoredInServer($globalProps.$myClient.id);
 }
 
 </script>

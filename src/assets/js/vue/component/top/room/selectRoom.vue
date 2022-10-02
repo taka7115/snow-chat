@@ -88,7 +88,7 @@ const prepareForNextPage = () => {
  * @returns {void}
  */
 const requestAllData = () => {
-  $apiClient.requestAllDataStoredInServer();
+  $apiClient.requestAllDataStoredInServer($globalProps.$myClient.id);
 }
 
 const checkSelected = (index)=>{

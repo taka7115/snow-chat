@@ -13,6 +13,8 @@ import crypto from "crypto";
 (function () {
 
   /**
+   * * @description method with response - prefix works immediately after connection *
+     @description method with receive - prefix works when some request 
    * api↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
    */
 
@@ -25,8 +27,8 @@ import crypto from "crypto";
      * @param {Array} clientList
      * @return {void}
      */
-    responseAllDataStoredInServer(clientList) {
-      this.io.emit("queryResponseAllDataStoredInServer", clientList);
+    responseAllDataStoredInServer(token, clientList) {
+      this.io.emit("queryResponseAllDataStoredInServer", [token, clientList]);
     }
     /**
      * @param {Array} clientList
@@ -57,7 +59,10 @@ import crypto from "crypto";
         clientList.push(newClient);
 
         // emit the token to client side
-        this.responseNewTokenAndClient(token, newClient)
+        this.responseNewTokenAndClient(token, newClient);
+
+        // emit all data of server side
+        this.responseAllDataStoredInServer(token, clientList);
       });
     }
     /**
@@ -100,8 +105,8 @@ import crypto from "crypto";
      * @return {void}
      */
     receiveRequestAllDataStoredInServer(clientList) {
-      this.socket.on("queryRequestAllDataStoredInServer", () => {
-        this.responseAllDataStoredInServer(clientList);
+      this.socket.on("queryRequestAllDataStoredInServer", (token) => {
+        this.responseAllDataStoredInServer(token, clientList);
       });
     }
     /**
@@ -211,15 +216,11 @@ import crypto from "crypto";
 
 
   /**
-   * @description method with response-prefix works immediately after connection
-   * @description method with receive-prefix works when some request get from client side.
    * @param {object} socket
    */
   io.on("connection", (socket) => {
     const apiServer = new ApiServer(io, socket);
 
-    // emit all data of server side
-    apiServer.responseAllDataStoredInServer(clientList);
     /**
      * update clientList
      * @param {object} myClient
