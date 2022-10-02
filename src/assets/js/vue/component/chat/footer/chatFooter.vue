@@ -47,6 +47,8 @@ const updateMessageList = () => {
     'text': textarea.value.value,
     'time': timeText
   }
+  console.log('newMessage');
+  console.table(newMessage);
   $apiClient.putChatMessage(roomName, newMessage);
 }
 

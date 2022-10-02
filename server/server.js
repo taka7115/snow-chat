@@ -130,6 +130,7 @@ import crypto from "crypto";
           if (Object.keys(room)[0] === roomName) {
             roomInfo[i][roomName].push(newMessage);
           }
+
           this.io.emit("queryGetRoomInfo", roomInfo[i][roomName]);
         });
       });

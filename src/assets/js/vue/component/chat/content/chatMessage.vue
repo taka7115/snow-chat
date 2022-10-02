@@ -56,6 +56,7 @@ const checkIfMessageIsMine = (item) => {
  * update room info
  * @param {object} room
  */
+console.table($apiClient.getRoomInfo());
 messageList.value = $apiClient.getRoomInfo();
 </script>
 
