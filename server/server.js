@@ -211,6 +211,8 @@ import crypto from "crypto";
 
 
   /**
+   * @description method with response-prefix works immediately after connection
+   * @description method with receive-prefix works when some request get from client side.
    * @param {object} socket
    */
   io.on("connection", (socket) => {
