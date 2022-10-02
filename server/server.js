@@ -76,8 +76,12 @@ import crypto from "crypto";
      */
     receivePutMyClient(clientList) {
       this.socket.on("queryPutMyClient", (myClient) => {
+        console.log('↓clientから変更依頼があった');
+        console.table(myClient);
         clientList.forEach((client, i) => {
           if (client.id === myClient.id) {
+            console.log('↓clientから変更依頼をサーバー側に反映した');
+            console.table(clientList[i]);
             clientList[i] = myClient;
           }
         });
@@ -103,6 +107,7 @@ import crypto from "crypto";
      */
     receiveRequestAllDataStoredInServer(clientList) {
       this.socket.on("queryRequestAllDataStoredInServer", (token) => {
+        console.table(clientList);
         this.responseAllDataStoredInServer(token, clientList);
       });
     }
