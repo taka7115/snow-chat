@@ -4,15 +4,6 @@ export default class ApiClient {
     this.socket = socket;
   }
   /**
-   * @param {Array} messageList
-   * @return {void}
-   */
-  getRoomInfo() {
-    this.socket.on("queryGetRoomInfo", (list) => {
-      return list;
-    });
-  }
-  /**
    * @param {object} messageList
    * @return {void}
    */

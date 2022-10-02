@@ -22,6 +22,7 @@
 import { computed, inject, reactive, ref, Ref, isReactive } from "vue";
 
 // Inject
+const $socket: any = inject("$socket");
 const $globalProps: any = inject("$globalProps");
 const $apiClient: any = inject("$apiClient");
 // Variable
@@ -56,8 +57,9 @@ const checkIfMessageIsMine = (item) => {
  * update room info
  * @param {object} room
  */
-console.table($apiClient.getRoomInfo());
-messageList.value = $apiClient.getRoomInfo();
+$socket.on("queryGetRoomInfo", (list) => {
+  messageList.value = list;
+});
 </script>
 
 <style scoped lang='scss'>

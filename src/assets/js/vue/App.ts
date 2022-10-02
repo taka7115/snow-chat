@@ -96,6 +96,7 @@ const App = () => {
 
     // provide & mount
     router.isReady().then(() => {
+      vm.provide("$socket", socket);
       vm.provide("$globalProps", globalProps);
       vm.provide("$apiClient", apiClient);
       vm.mount("#app");
