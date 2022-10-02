@@ -42,12 +42,12 @@ const App = () => {
     socket.on("connect", () => {
       // if no id in Storage
       if (!myId) {
-        socket.emit("queryReceiveRequireToken");
+        socket.emit("queryRequireToken");
         /**
          * get token from server side
          * @param {Array<string, Array>} TokenAndClient
          */
-        socket.on("queryResponseNewTokenAndClient", (tokenAndClient) => {
+        socket.on("queryNewTokenAndClient", (tokenAndClient) => {
           // set id in storage
           sessionStorage.setItem("id", tokenAndClient[0]);
 
@@ -58,10 +58,18 @@ const App = () => {
         });
       }
 
+      // once page loaded, request all data stored in server
+      socket.emit("queryRequestAllDataStoredInServer", myId);
+
       // reflect all data stored in server
-      socket.on("queryResponseAllDataStoredInServer", (arg) => {
+      socket.on("queryAllDataStoredInServer", (arg) => {
         const [token, clientList] = arg;
-        
+
+        console.log("token");
+        console.log(token);
+        console.log("clientList");
+        console.log(clientList);
+
         if (token === myId) {
           for (const client of clientList) {
             if (client.id === myId) {
@@ -71,14 +79,6 @@ const App = () => {
             }
           }
         }
-      });
-
-      /**
-       * update client
-       * @param {Array<object>} updatedMyClient
-       */
-      socket.on("ioUpdateMyClient", (updatedMyClient) => {
-        globalProps.$myClient = updatedMyClient;
       });
     });
   });

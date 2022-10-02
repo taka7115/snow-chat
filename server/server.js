@@ -28,14 +28,14 @@ import crypto from "crypto";
      * @return {void}
      */
     responseAllDataStoredInServer(token, clientList) {
-      this.io.emit("queryResponseAllDataStoredInServer", [token, clientList]);
+      this.io.emit("queryAllDataStoredInServer", [token, clientList]);
     }
     /**
      * @param {Array} clientList
      * @return {void}
      */
     receiveRequireToken(clientList) {
-      this.socket.on("queryReceiveRequireToken", () => {
+      this.socket.on("queryRequireToken", () => {
         /**
          * to make a token
          * @param  {string} id - socket.id
@@ -60,9 +60,6 @@ import crypto from "crypto";
 
         // emit the token to client side
         this.responseNewTokenAndClient(token, newClient);
-
-        // emit all data of server side
-        this.responseAllDataStoredInServer(token, clientList);
       });
     }
     /**
@@ -71,7 +68,7 @@ import crypto from "crypto";
      * @return {void}
      */
     responseNewTokenAndClient(token, newClient) {
-      this.io.emit("queryResponseNewTokenAndClient", [token, newClient]);
+      this.io.emit("queryNewTokenAndClient", [token, newClient]);
     }
     /**
      * @param {Array} clientList
