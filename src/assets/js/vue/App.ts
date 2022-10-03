@@ -47,12 +47,16 @@ const App = () => {
          * get token from server side
          * @param {Array<string, Array>} TokenAndClient
          */
-        socket.on("queryNewTokenAndClient", (tokenAndClient) => {
-          // set id in storage
-          sessionStorage.setItem("id", tokenAndClient[0]);
+        socket.on("queryNewTokenAndClient", (arg) => {
 
-          myId = tokenAndClient[0];
-          globalProps.$myClient = tokenAndClient[1];
+          const [token, client] = arg;
+
+          alert(`初回発行：${token}`)
+
+          // set id in storage
+          sessionStorage.setItem("id", token);
+          myId = token;
+          globalProps.$myClient = client;
 
           resolve("resolve"); // after resolve(), setApp() will be executed
         });
@@ -64,10 +68,10 @@ const App = () => {
       // reflect all data stored in server
       socket.on("queryAllDataStoredInServer", (arg) => {
         const [token, client] = arg;
-        if (token === myId) {
+        if (client && token === myId) {
           globalProps.$myClient = client;
 
-          alert(token);
+          alert(`allData：${token}`);
           console.log('$client');
           console.log(client);
 

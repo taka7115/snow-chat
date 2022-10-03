@@ -28,7 +28,7 @@ import crypto from "crypto";
      * @return {void}
      */
     responseAllDataStoredInServer(token, clientList) {
-      let client = null;
+      let client = undefined;
 
       for (const item of clientList) {
         if (item.id === token) {
