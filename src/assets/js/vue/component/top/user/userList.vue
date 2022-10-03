@@ -25,8 +25,6 @@ const $apiClient: any = inject("$apiClient");
  * @returns {Array}
  */
 const returnUserList = computed(() => {
-  console.log('userList.vue');
-  console.log($globalProps.$myClient.userList);
   return $globalProps.$myClient.userList;
 });
 

@@ -67,6 +67,7 @@ const App = () => {
         if (token === myId) {
           globalProps.$myClient = client;
 
+          alert(token);
           console.log('$client');
           console.log(client);
 
