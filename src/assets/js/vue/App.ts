@@ -48,6 +48,7 @@ const App = () => {
          * @param {Array<string, Array>} TokenAndClient
          */
         socket.on("queryNewTokenAndClient", (arg) => {
+          if (!myId) {
 
           const [token, client] = arg;
 
@@ -59,11 +60,15 @@ const App = () => {
           globalProps.$myClient = client;
 
           resolve("resolve"); // after resolve(), setApp() will be executed
+
+          }
         });
       }
 
       // once page loaded, request all data stored in server
-      socket.emit("queryRequestAllDataStoredInServer", myId);
+      if (myId) {
+        socket.emit("queryRequestAllDataStoredInServer", myId);
+      }
 
       // reflect all data stored in server
       socket.on("queryAllDataStoredInServer", (arg) => {
