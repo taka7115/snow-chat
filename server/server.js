@@ -28,7 +28,15 @@ import crypto from "crypto";
      * @return {void}
      */
     responseAllDataStoredInServer(token, clientList) {
-      this.io.emit("queryAllDataStoredInServer", [token, clientList]);
+      let client = null;
+
+      for (const item of clientList) {
+        if (item.id === token) {
+          client = item;
+        }
+      }
+
+      this.io.emit("queryAllDataStoredInServer", [token, client]);
     }
     /**
      * @param {Array} clientList
@@ -71,6 +79,7 @@ import crypto from "crypto";
       this.io.emit("queryNewTokenAndClient", [token, newClient]);
     }
     /**
+     * @todo すべて同じidの情報が各clientに帰っているので修正
      * @param {Array} clientList
      * @return {void}
      */

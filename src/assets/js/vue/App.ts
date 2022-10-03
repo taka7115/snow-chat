@@ -63,18 +63,14 @@ const App = () => {
 
       // reflect all data stored in server
       socket.on("queryAllDataStoredInServer", (arg) => {
-        const [token, clientList] = arg;
+        const [token, client] = arg;
         if (token === myId) {
-          for (const client of clientList) {
-            if (client.id === myId) {
+          globalProps.$myClient = client;
 
-              console.log('client');
-              console.table(client);
+          console.log('$client');
+          console.log(client);
 
-              globalProps.$myClient = client;
-              resolve("resolve"); // after resolve(), setApp() will be executed
-            }
-          }
+          resolve("resolve"); // after resolve(), setApp() will be executed
         }
       });
     });
