@@ -11,6 +11,22 @@ import multer from "multer";
 import crypto from "crypto";
 
 (function () {
+  const app = express();
+  app.use(express.static("public")); // get document root
+
+  const httpServer = createServer(app);
+  const io = new Server(httpServer);
+
+  const PORT = process.env.PORT || 3000;
+  app.get("/public/", (req, res) => {
+    // set up routing
+    res.sendFile(__dirname + "/index.html");
+  });
+
+  // store
+  const clientList = [];
+  const roomInfo = [];
+
 
   /**
    * * @description method with response - prefix works immediately after connection *
@@ -39,10 +55,9 @@ import crypto from "crypto";
       this.io.emit("queryAllDataStoredInServer", [token, client]);
     }
     /**
-     * @param {Array} clientList
      * @return {void}
      */
-    receiveRequireToken(clientList) {
+    receiveRequireToken() {
       this.socket.on("queryRequireToken", () => {
         /**
          * to make a token
@@ -80,10 +95,9 @@ import crypto from "crypto";
     }
     /**
      * @todo すべて同じidの情報が各clientに帰っているので修正
-     * @param {Array} clientList
      * @return {void}
      */
-    receivePutMyClient(clientList) {
+    receivePutMyClient() {
       this.socket.on("queryPutMyClient", (myClient) => {
         console.log('↓clientから変更依頼があった');
         console.table(myClient);
@@ -97,10 +111,9 @@ import crypto from "crypto";
       });
     }
     /**
-     * @param {object} roomInfo
      * @return {void}
      */
-    receivePutRoomInfo(roomInfo) {
+    receivePutRoomInfo() {
       this.socket.on("queryPutRoomInfo", (roomName) => {
         if (!(roomInfo.find((room) => Object.keys(room)[0] === roomName))) {
           const newRoom = {
@@ -111,12 +124,10 @@ import crypto from "crypto";
       });
     }
     /**
-     * @param {Array} clientList
      * @return {void}
      */
-    receiveRequestAllDataStoredInServer(clientList) {
+    receiveRequestAllDataStoredInServer() {
       this.socket.on("queryRequestAllDataStoredInServer", (token) => {
-        console.table(clientList);
         this.responseAllDataStoredInServer(token, clientList);
       });
     }
@@ -124,7 +135,7 @@ import crypto from "crypto";
      * @param {object} roomInfo
      * @return {void}
      */
-    receiveRequestRoomInfo(roomInfo) {
+    receiveRequestRoomInfo() {
       this.socket.on("queryRequestRoomInfo", (roomName) => {
         const roomData = roomInfo.filter((room) => Object.keys(room)[0] === roomName);
         const messageList = Object.values(roomData)[0][roomName];
@@ -132,10 +143,9 @@ import crypto from "crypto";
       });
     }
     /**
-     * @param {object} roomInfo
      * @return {void}
      */
-    receivePutChatMessage(roomInfo) {
+    receivePutChatMessage() {
       this.socket.on("queryPutChatMessage", (messageInfo) => {
         const roomName = messageInfo[0];
         const newMessage = messageInfo[1];
@@ -150,10 +160,9 @@ import crypto from "crypto";
       });
     }
     /**
-     * @param {object} roomInfo
      * @return {void}
      */
-    receivePutNewIconForMessages(roomInfo) {
+    receivePutNewIconForMessages() {
       this.socket.on("queryPutNewIconForMessages", (name, newIcon) => {
         if (roomInfo === []) {
           return;
@@ -174,21 +183,6 @@ import crypto from "crypto";
    * api↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
    */
 
-  const app = express();
-  app.use(express.static("public")); // get document root
-
-  const httpServer = createServer(app);
-  const io = new Server(httpServer);
-
-  const PORT = process.env.PORT || 3000;
-  app.get("/public/", (req, res) => {
-    // set up routing
-    res.sendFile(__dirname + "/index.html");
-  });
-
-  // store
-  const clientList = [];
-  const roomInfo = [];
 
   /**
    * activate server
@@ -225,8 +219,6 @@ import crypto from "crypto";
 
 
 
-
-
   /**
    * @param {object} socket
    */
@@ -237,43 +229,38 @@ import crypto from "crypto";
      * update clientList
      * @param {object} myClient
      */
-    apiServer.receiveRequireToken(clientList);
+    apiServer.receiveRequireToken();
 
     /**
      * update myClient of server
-     * @param {object} myClient
      */
-    apiServer.receivePutMyClient(clientList);
+    apiServer.receivePutMyClient();
 
     /**
      * update roomInfo of server
-     * @param {object} myClient
      */
-    apiServer.receivePutRoomInfo(roomInfo);
+    apiServer.receivePutRoomInfo();
 
     /**
      * response of all data of server
-     * @return {void}
      */
-    apiServer.receiveRequestAllDataStoredInServer(clientList);
+    apiServer.receiveRequestAllDataStoredInServer();
 
     /**
      * response roomInfo of server
-     * @param {object} myClient
      */
-    apiServer.receiveRequestRoomInfo(roomInfo);
+    apiServer.receiveRequestRoomInfo();
 
     /**
      * if no its room yet in `roomInfo`, add its room
      * if its room already, add just chat message
-     * @param {Array<roomName, message>} messageInfo
      */
-    apiServer.receivePutChatMessage(roomInfo);
+    apiServer.receivePutChatMessage();
 
     /**
      * reflect it in messages if icon changed
      * @param {string} id
      */
-    apiServer.receivePutNewIconForMessages(roomInfo);
+    apiServer.receivePutNewIconForMessages();
   });
 })();

@@ -31,7 +31,7 @@ const apiClient = new ApiClient(socket);
  * set Variable
  */
 const App = () => {
-  const storageId = sessionStorage.getItem("id");
+  const storageId = sessionStorage?.getItem("id");
   /**
    * set socket
    * @returns {String}
