@@ -52,8 +52,6 @@ const App = () => {
 
           const [token, client] = arg;
 
-          alert(`初回発行：${token}`)
-
           // set id in storage
           sessionStorage.setItem("id", token);
           myId = token;
@@ -77,8 +75,6 @@ const App = () => {
           globalProps.$myClient = client;
 
           alert(`allData：${token}`);
-          console.log('$client');
-          console.log(client);
 
           resolve("resolve"); // after resolve(), setApp() will be executed
         }
